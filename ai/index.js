@@ -15,7 +15,8 @@ exports.handler = async (event, context) => {
 
   const r = await fetch('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
     method: 'POST',
-    headers: { Authorization: 'Bearer ' + context.token.access_token, 'x-folder-id': process.env.FOLDER_ID },
+    headers: { Authorization: 'Bearer ' + context.token.access_token, 'x-folder-id': process.env.FOLDER_ID,
+      'x-data-logging-enabled': 'false' }, // письма с телефонами клиентов — не хранить у Яндекса
     body: JSON.stringify({
       modelUri: `gpt://${process.env.FOLDER_ID}/yandexgpt-lite/latest`,
       completionOptions: { stream: false, temperature: 0, maxTokens: '500' },
