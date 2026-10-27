@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Калькулятор картона и заявка — Картонтоль (концепт)</title>
+<meta name="description" content="Длина и вес рулона, листы в тонне и заявка на картон. ИИ разбирает письмо с запросом и заполняет заявку.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#2B3A8F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 20 20'%3E%3Ccircle r='10' fill='%23C49A6C'/%3E%3Ccircle r='9' fill='none' stroke='%236E4B2A' stroke-dasharray='1 1.2'/%3E%3Ccircle r='3' fill='%236E4B2A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержанию</a>
+<div class="concept"><p class="wrap"><b>Концепт редизайна. Не официальный сайт завода.</b> Официальный сайт — <a href="https://kartontol.ru/">kartontol.ru</a></p></div>
+<header class="site wrap">
+  <a class="brand" href="../index.html"><b>Картонтоль</b><small>картонный завод с 1872 года</small></a>
+  <a class="tel" href="tel:+78123650702">+7 (812) 365-07-02<small>отдел продаж</small></a>
+  <nav class="nav" aria-label="Разделы сайта">
+    <a href="../products.html">Продукция</a>
+    <a href="index.html" aria-current="page">Калькулятор</a>
+    <a href="../about.html">О заводе</a>
+    <a href="../contacts.html">Контакты</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+<div class="calc-head">
+  <h1>Калькулятор картона</h1>
+  <p class="lead">Длина и вес рулона, листы в тонне и заявка на поставку. Считает сразу, пока вы вводите.</p>
+  <nav class="tabs" role="tablist" aria-label="Разделы калькулятора">
+    <button type="button" role="tab" id="tab-roll" aria-controls="p-roll" aria-selected="true">Рулон</button>
+    <button type="button" role="tab" id="tab-sheet" aria-controls="p-sheet" aria-selected="false" tabindex="-1">Листы</button>
+    <button type="button" role="tab" id="tab-order" aria-controls="p-order" aria-selected="false" tabindex="-1">Заявка</button>
+  </nav>
+</div>
+<!-- РУЛОН -->
+<section class="panel" id="p-roll" role="tabpanel" aria-labelledby="tab-roll">
+  <div class="tag">
+    <svg viewBox="-100 -100 200 200" aria-hidden="true">
+      <circle class="roll-face" r="97"/>
+      <path class="roll-wind" id="r-wind" pathLength="1"/>
+      <circle class="roll-core" id="r-core" r="12"/>
+      <circle class="roll-hole" id="r-hole" r="9"/>
+    </svg>
+    <dl aria-live="polite">
+      <div class="big"><dt>Длина <span class="stamp" id="r-est" hidden>оценка</span></dt><dd id="r-len">—</dd></div>
+      <div><dt>Вес</dt><dd id="r-kg-out">—</dd></div>
+    </dl>
+    <p class="cap" id="r-cap"></p>
+  </div>
+
+  <form id="f-roll" novalidate>
+    <fieldset class="seg">
+      <legend>Что известно о рулоне</legend>
+      <div class="opts">
+        <label><input type="radio" name="rmode" value="dia" checked><span>Диаметр</span></label>
+        <label><input type="radio" name="rmode" value="wt"><span>Вес</span></label>
+      </div>
+    </fieldset>
+
+    <div id="r-dia" class="fields">
+      <div class="pair">
+        <div class="f">
+          <label for="r-D">Внешний диаметр, мм</label>
+          <input id="r-D" name="outerMm" inputmode="decimal" autocomplete="off" placeholder="например, 1000" aria-describedby="r-D-err">
+          <p class="err" id="r-D-err" hidden></p>
+        </div>
+        <div class="f">
+          <label for="r-d">Диаметр втулки, мм</label>
+          <input id="r-d" name="coreMm" inputmode="decimal" autocomplete="off" placeholder="например, 76" aria-describedby="r-d-err">
+          <p class="err" id="r-d-err" hidden></p>
+        </div>
+      </div>
+      <div class="f">
+        <label for="r-t">Толщина картона, мм</label>
+        <input id="r-t" name="thicknessMm" inputmode="decimal" autocomplete="off" placeholder="например, 0,45" aria-describedby="r-t-hint r-t-err r-t-note">
+        <p class="hint" id="r-t-hint">Есть в паспорте продукции. Не знаете — оставьте пустым, оценим по граммажу.</p>
+        <p class="err" id="r-t-err" hidden></p>
+        <p class="note" id="r-t-note" hidden></p>
+      </div>
+    </div>
+
+    <div id="r-wtbox" class="f" hidden>
+      <label for="r-kg">Вес рулона, кг</label>
+      <input id="r-kg" name="weightKg" inputmode="decimal" autocomplete="off" placeholder="например, 800" aria-describedby="r-kg-err">
+      <p class="err" id="r-kg-err" hidden></p>
+    </div>
+
+    <div class="pair">
+      <div class="f">
+        <label for="r-g">Граммаж, г/м²</label>
+        <input id="r-g" name="grammageGsm" inputmode="decimal" autocomplete="off" placeholder="например, 300" aria-describedby="r-g-err">
+        <p class="err" id="r-g-err" hidden></p>
+      </div>
+      <div class="f">
+        <label for="r-w">Ширина рулона, мм</label>
+        <input id="r-w" name="widthMm" inputmode="decimal" autocomplete="off" placeholder="например, 1050" aria-describedby="r-w-err">
+        <p class="err" id="r-w-err" hidden></p>
+      </div>
+    </div>
+
+    <details>
+      <summary>Дополнительно</summary>
+      <div class="f">
+        <label for="r-rho">Плотность картона, г/см³</label>
+        <input id="r-rho" name="densityGcm3" inputmode="decimal" autocomplete="off" value="0,75" placeholder="0,75" aria-describedby="r-rho-hint r-rho-err">
+        <p class="hint" id="r-rho-hint">Нужна, только когда толщина не указана. Пустое поле — 0,75.</p>
+        <p class="err" id="r-rho-err" hidden></p>
+      </div>
+    </details>
+  </form>
+</section>
+
+<!-- ЛИСТЫ -->
+<section class="panel" id="p-sheet" role="tabpanel" aria-labelledby="tab-sheet" hidden>
+  <div class="tag">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <rect class="sheet" id="s-r3"/><rect class="sheet" id="s-r2"/><rect class="sheet top" id="s-r1"/>
+    </svg>
+    <dl aria-live="polite">
+      <div class="big"><dt>Вес листа</dt><dd id="s-wt">—</dd></div>
+      <div><dt>Листов в тонне</dt><dd id="s-per">—</dd></div>
+    </dl>
+    <p class="cap" id="s-cap"></p>
+  </div>
+
+  <form id="f-sheet" novalidate>
+    <div class="pair">
+      <div class="f">
+        <label for="s-w">Ширина листа, мм</label>
+        <input id="s-w" name="widthMm" inputmode="decimal" autocomplete="off" placeholder="например, 700" aria-describedby="s-w-err">
+        <p class="err" id="s-w-err" hidden></p>
+      </div>
+      <div class="f">
+        <label for="s-l">Длина листа, мм</label>
+        <input id="s-l" name="lengthMm" inputmode="decimal" autocomplete="off" placeholder="например, 1000" aria-describedby="s-l-err">
+        <p class="err" id="s-l-err" hidden></p>
+      </div>
+    </div>
+    <div class="f">
+      <label for="s-g">Граммаж, г/м²</label>
+      <input id="s-g" name="grammageGsm" inputmode="decimal" autocomplete="off" placeholder="например, 350" aria-describedby="s-g-err">
+      <p class="err" id="s-g-err" hidden></p>
+    </div>
+
+    <fieldset class="seg fields">
+      <legend>Партия</legend>
+      <p class="hint">Заполните одно поле или оба.</p>
+      <div class="pair">
+        <div class="f">
+          <label for="s-n">Листов в партии</label>
+          <input id="s-n" name="sheetCount" inputmode="numeric" autocomplete="off" placeholder="например, 5000" aria-describedby="s-n-err s-n-out">
+          <p class="err" id="s-n-err" hidden></p>
+          <output id="s-n-out" for="s-n" hidden></output>
+        </div>
+        <div class="f">
+          <label for="s-t">Тонн в партии</label>
+          <input id="s-t" name="tonnes" inputmode="decimal" autocomplete="off" placeholder="например, 2" aria-describedby="s-t-err s-t-out">
+          <p class="err" id="s-t-err" hidden></p>
+          <output id="s-t-out" for="s-t" hidden></output>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
+<!-- ЗАЯВКА -->
+<section class="panel" id="p-order" role="tabpanel" aria-labelledby="tab-order" hidden>
+  <form id="f-order" novalidate>
+    <div class="ai">
+      <label for="o-letter">Письмо с запросом</label>
+      <textarea id="o-letter" aria-describedby="o-letter-hint" placeholder="например: нужно 20 т, 450 г/м², рулон 1020 мм, доставка в Тверь"></textarea>
+      <button type="button" class="btn" id="o-ai">Разобрать письмо ИИ</button>
+      <p class="hint" id="o-letter-hint">ИИ заполнит поля ниже. Текст уходит на разбор в YandexGPT через облачную функцию Яндекса; сайт его не хранит.</p>
+    </div>
+    <div class="pull">
+      <button type="button" class="btn" id="o-pull">Перенести из расчёта</button>
+      <p class="hint">Подставит граммаж, ширину или формат, а итог расчёта допишет в комментарий.</p>
+    </div>
+    <div class="pair">
+      <div class="f">
+        <label for="o-company">Компания</label>
+        <input id="o-company" name="company" autocomplete="organization" placeholder="название организации">
+      </div>
+      <div class="f">
+        <label for="o-contact">Контакт: телефон или почта</label>
+        <input id="o-contact" name="contact" autocomplete="email" placeholder="+7 900 000-00-00 или name@mail.ru" aria-describedby="o-contact-err">
+        <p class="err" id="o-contact-err" hidden></p>
+      </div>
+    </div>
+    <fieldset class="seg">
+      <legend>Продукция</legend>
+      <div class="opts">
+        <label><input type="radio" name="product" value="рулон"><span>Рулон</span></label>
+        <label><input type="radio" name="product" value="лист"><span>Лист</span></label>
+        <label><input type="radio" name="product" value="лента"><span>Лента</span></label>
+      </div>
+    </fieldset>
+    <div class="pair">
+      <div class="f">
+        <label for="o-brand">Марка</label>
+        <input id="o-brand" name="brand" autocomplete="off" placeholder="как в паспорте или прайсе">
+      </div>
+      <div class="f">
+        <label for="o-g">Граммаж, г/м²</label>
+        <input id="o-g" name="grammageGsm" inputmode="decimal" autocomplete="off" placeholder="например, 300" aria-describedby="o-g-err">
+        <p class="err" id="o-g-err" hidden></p>
+      </div>
+    </div>
+    <div class="f">
+      <label for="o-size">Ширина или формат</label>
+      <input id="o-size" name="size" autocomplete="off" placeholder="1050 мм или 700 × 1000 мм">
+    </div>
+    <div class="pair qty">
+      <div class="f">
+        <label for="o-qty">Объём</label>
+        <input id="o-qty" name="qty" inputmode="decimal" autocomplete="off" placeholder="например, 20" aria-describedby="o-qty-err">
+        <p class="err" id="o-qty-err" hidden></p>
+      </div>
+      <div class="f">
+        <label for="o-unit">Единицы</label>
+        <select id="o-unit" name="unit">
+          <option value="t">т</option>
+          <option value="roll">рулонов</option>
+          <option value="sheet">листов</option>
+        </select>
+      </div>
+    </div>
+    <div class="f">
+      <label for="o-city">Город доставки</label>
+      <input id="o-city" name="city" autocomplete="address-level2" placeholder="например, Москва">
+    </div>
+    <div class="f">
+      <label for="o-comment">Комментарий</label>
+      <textarea id="o-comment" name="comment" placeholder="сроки, упаковка, вопросы"></textarea>
+    </div>
+    <div class="btns">
+      <button type="button" class="btn main" id="o-copy">Скопировать заявку</button>
+      <a class="btn" id="o-mail" href="mailto:">Отправить письмом</a>
+    </div>
+    <p id="o-status" role="status"></p>
+  </form>
+  <aside class="preview" aria-labelledby="o-prev-h">
+    <h2 id="o-prev-h">Текст заявки</h2>
+    <pre id="o-text"></pre>
+  </aside>
+</section>
+<p class="hint" style="margin-bottom:8px">Расчёт идёт по формулам и не заменяет паспорт продукции: толщину и плотность сверяйте с ним.</p>
+</main>
+
+<footer class="foot wrap">
+  <div>
+    <p><b>ЗАО «Завод «Картонтоль»</b></p>
+    <p>192029, Санкт-Петербург, пр. Обуховской Обороны, 72. Пн–пт 8:30–18:00.</p>
+    <p>Отдел продаж: <a href="tel:+78123650702">+7 (812) 365-07-02</a>, <a href="mailto:sale@kartontol.ru">sale@kartontol.ru</a></p>
+  </div>
+  <p><b>Концепт редизайна, не официальный сайт.</b> Тексты, характеристики и фото взяты с <a href="https://kartontol.ru/">kartontol.ru</a>. Заявка никуда не отправляется сама: её копируют или открывают письмом.</p>
+</footer>
+
+<script src="calc.js"></script>
+<script>
+var SALES_EMAIL = ''; // ponytail: адрес отдела продаж завода — вписать, когда даст завод
+
+var $ = function (id) { return document.getElementById(id); };
+var fmts = {};
+function fmt(n, digits) {
+  if (digits === undefined) digits = n >= 100 ? 0 : n >= 10 ? 1 : n >= 1 ? 2 : 3;
+  if (!fmts[digits]) fmts[digits] = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: digits });
+  return fmts[digits].format(n);
+}
+var plural = new Intl.PluralRules('ru-RU');
+function pl(n, forms) { var i = { one: 0, few: 1, many: 2 }[plural.select(n)]; return forms[i === undefined ? 1 : i]; }
+function ok(x) { return x > 0; }
+function raw(n) { return String(n).replace('.', ','); }
+
+// Ошибка у поля: видна после того, как поле заполнили и ушли из него (или при отправке)
+function setErr(el, msg) {
+  var box = $(el.id + '-err'), show = !!msg && el.dataset.touched === '1';
+  box.textContent = show ? msg : '';
+  box.hidden = !show;
+  el.setAttribute('aria-invalid', show ? 'true' : 'false');
+}
+// Число > 0 из поля; пусто → null; ошибка → NaN
+function num(id, integer) {
+  var el = $(id), v = Calc.parseNum(el.value), msg = '';
+  if (Number.isNaN(v)) msg = 'Нужно число цифрами, например 0,5.';
+  else if (v !== null && v <= 0) msg = 'Число должно быть больше нуля.';
+  else if (integer && v !== null && v % 1) msg = 'Нужно целое число, например 5000.';
+  setErr(el, msg);
+  return msg ? NaN : v;
+}
+
+var last = { kind: 'roll', roll: null, sheet: null };
+
+/* ---------- Рулон ---------- */
+var rollForm = $('f-roll');
+function spiral(r, R, turns) {
+  var steps = Math.ceil(turns * 64), d = '';
+  for (var i = 0; i <= steps; i++) {
+    var a = i / steps * turns * 2 * Math.PI, rad = r + (R - r) * i / steps;
+    d += (i ? 'L' : 'M') + (rad * Math.cos(a)).toFixed(2) + ' ' + (rad * Math.sin(a)).toFixed(2);
+  }
+  return d;
+}
+function drawRoll(D, d, turns) {
+  var R = 94, r = Math.min(Math.max(R * d / D, 10), 80), vis = Math.max(3, Math.min(18, Math.round(turns)));
+  var w = $('r-wind');
+  w.setAttribute('d', spiral(r, R, vis));
+  w.style.strokeWidth = Math.min(Math.max((R - r) / vis * 0.55, 0.8), 6);
+  $('r-core').setAttribute('r', r);
+  $('r-hole').setAttribute('r', r * 0.74);
+}
+function calcRoll() {
+  var byWeight = rollForm.rmode.value === 'wt';
+  $('r-dia').hidden = byWeight;
+  $('r-wtbox').hidden = !byWeight;
+  var g = num('r-g'), wMm = num('r-w'), rho = num('r-rho');
+  if (rho === null) rho = Calc.DEFAULT_DENSITY;
+  var len = NaN, kg = NaN, estimate = false, missing = [], cap = '', D, d, t, W, turns;
+
+  if (!byWeight) {
+    D = num('r-D'); d = num('r-d'); t = num('r-t');
+    if (ok(D) && d >= D) { setErr($('r-d'), 'Втулка должна быть меньше внешнего диаметра. Проверьте, что оба размера в миллиметрах.'); d = NaN; }
+    if (t === null && ok(g) && ok(rho)) { t = Calc.thicknessFromGrammage(g, rho); estimate = true; }
+    if (!ok(D)) missing.push('внешний диаметр');
+    if (!ok(d)) missing.push('диаметр втулки');
+    if (!ok(t)) missing.push('толщина или граммаж');
+    if (!missing.length) {
+      len = Calc.rollLength(D, d, t);
+      turns = Calc.rollTurns(D, d, t);
+      if (ok(wMm) && ok(g)) kg = Calc.rollWeight(len, wMm / 1000, g);
+      cap = 'Ø ' + fmt(D) + ' мм на втулке Ø ' + fmt(d) + ' мм, ' + fmt(turns, 0) + ' ' + pl(Math.round(turns), ['виток', 'витка', 'витков']) + '.';
+      if (!ok(kg)) cap += ' Для веса нужны ширина и граммаж.';
+    }
+    drawRoll(ok(D) ? D : 1000, ok(d) ? d : 76, ok(turns) ? turns : 24);
+  } else {
+    W = num('r-kg');
+    if (!ok(W)) missing.push('вес рулона');
+    if (!ok(wMm)) missing.push('ширина');
+    if (!ok(g)) missing.push('граммаж');
+    if (!missing.length) { len = Calc.rollLengthFromWeight(W, wMm / 1000, g); kg = W; cap = 'Длина по весу, ширине и граммажу.'; }
+  }
+  var note = $('r-t-note');
+  note.hidden = !estimate;
+  if (estimate) note.textContent = 'Считаем по граммажу: толщина ≈ ' + fmt(t, 2) + ' мм при плотности ' + fmt(rho) + ' г/см³. Это оценка: точную толщину возьмите из паспорта продукции.';
+
+  $('r-len').innerHTML = ok(len) ? fmt(len) + '<small> м</small>' : '—';
+  $('r-kg-out').innerHTML = ok(kg) ? fmt(kg) + '<small> кг</small>' : '—';
+  $('r-est').hidden = !(estimate && ok(len));
+  $('r-cap').textContent = missing.length ? 'Не хватает: ' + missing.join(', ') + '.' : cap;
+
+  last.roll = !ok(len) ? null : {
+    product: 'рулон', g: g, size: ok(wMm) ? fmt(wMm) + ' мм' : '', unit: 'roll',
+    text: 'Расчёт рулона: ' + (byWeight
+      ? 'вес ' + fmt(W) + ' кг, ширина ' + fmt(wMm) + ' мм, ' + fmt(g) + ' г/м², длина ' + fmt(len) + ' м.'
+      : 'Ø ' + fmt(D) + ' мм, втулка Ø ' + fmt(d) + ' мм, толщина ' + fmt(t, 2) + ' мм' + (estimate ? ' (оценка по граммажу)' : '') +
+        ', длина ' + fmt(len) + ' м' + (ok(kg) ? ', вес ' + fmt(kg) + ' кг' : '') + '.')
+  };
+}
+
+/* ---------- Листы ---------- */
+function drawSheet(W, L) {
+  var s = 78 / Math.max(W, L), w = W * s, h = L * s, x = (100 - w - 8) / 2, y = (100 - h - 8) / 2;
+  [['s-r3', 8], ['s-r2', 4], ['s-r1', 0]].forEach(function (p) {
+    var el = $(p[0]);
+    el.setAttribute('x', x + p[1]); el.setAttribute('y', y + p[1]);
+    el.setAttribute('width', w); el.setAttribute('height', h);
+  });
+}
+function calcSheet() {
+  var W = num('s-w'), L = num('s-l'), g = num('s-g'), N = num('s-n', true), T = num('s-t'), missing = [];
+  if (!ok(W)) missing.push('ширина листа');
+  if (!ok(L)) missing.push('длина листа');
+  if (!ok(g)) missing.push('граммаж');
+  var base = !missing.length, wm = W / 1000, lm = L / 1000, sw, per, batchKg, nInT;
+  drawSheet(ok(W) ? W : 700, ok(L) ? L : 1000);
+  if (base) { sw = Calc.sheetWeight(wm, lm, g); per = Calc.sheetsInTonnes(1, wm, lm, g); }
+  $('s-wt').innerHTML = base ? fmt(sw) + '<small> кг</small>' : '—';
+  $('s-per').innerHTML = base ? fmt(per, 0) : '—';
+  $('s-cap').textContent = base ? 'Формат ' + fmt(W) + ' × ' + fmt(L) + ' мм, ' + fmt(g) + ' г/м².' : 'Не хватает: ' + missing.join(', ') + '.';
+
+  var nOut = $('s-n-out'), tOut = $('s-t-out');
+  nOut.hidden = !ok(N); tOut.hidden = !ok(T);
+  if (ok(N)) {
+    batchKg = base && Calc.batchWeight(N, wm, lm, g);
+    nOut.textContent = !base ? 'Сначала укажите формат и граммаж.' :
+      'Вес партии: ' + (batchKg >= 1000 ? fmt(batchKg / 1000) + ' т (' + fmt(batchKg, 0) + ' кг)' : fmt(batchKg) + ' кг') + '.';
+  }
+  if (ok(T)) {
+    nInT = base && Calc.sheetsInTonnes(T, wm, lm, g);
+    tOut.textContent = !base ? 'Сначала укажите формат и граммаж.' :
+      'Поместится ' + fmt(nInT, 0) + ' ' + pl(nInT, ['лист', 'листа', 'листов']) + '.';
+  }
+  last.sheet = !base ? null : {
+    product: 'лист', g: g, size: fmt(W) + ' × ' + fmt(L) + ' мм',
+    qty: ok(T) ? T : ok(N) ? N : null, unit: ok(T) ? 't' : 'sheet',
+    text: 'Расчёт листов: формат ' + fmt(W) + ' × ' + fmt(L) + ' мм, ' + fmt(g) + ' г/м², вес листа ' + fmt(sw) + ' кг, в тонне ' + fmt(per, 0) + ' ' + pl(per, ['лист', 'листа', 'листов']) +
+      (ok(N) ? ', ' + fmt(N, 0) + ' ' + pl(N, ['лист', 'листа', 'листов']) + ' весят ' + fmt(batchKg) + ' кг' : '') +
+      (ok(T) ? ', в ' + fmt(T) + ' т — ' + fmt(nInT, 0) + ' ' + pl(nInT, ['лист', 'листа', 'листов']) : '') + '.'
+  };
+}
+
+/* ---------- Заявка ---------- */
+var orderForm = $('f-order');
+var UNITS = { t: ['т', 'т', 'т'], roll: ['рулон', 'рулона', 'рулонов'], sheet: ['лист', 'листа', 'листов'] };
+function status(msg) { $('o-status').textContent = msg; }
+function checkContact(force) {
+  var el = $('o-contact'), v = el.value.trim();
+  var good = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || (/^[+\d\s()\-]+$/.test(v) && v.replace(/\D/g, '').length >= 10);
+  if (force) el.dataset.touched = '1';
+  setErr(el, good ? '' : v ? 'Не похоже на телефон или почту. Пример: +7 900 000-00-00 или name@mail.ru.' : 'Укажите телефон или почту, чтобы завод мог ответить.');
+  return good;
+}
+function orderText() {
+  var f = orderForm, g = num('o-g'), q = num('o-qty');
+  var rows = [
+    ['Компания', f.company.value], ['Контакт', f.contact.value], ['Продукция', f.product.value], ['Марка', f.brand.value],
+    ['Граммаж', ok(g) ? fmt(g) + ' г/м²' : ''], ['Ширина или формат', f.size.value],
+    ['Объём', ok(q) ? fmt(q) + ' ' + pl(q, UNITS[f.unit.value]) : ''],
+    ['Город доставки', f.city.value], ['Комментарий', f.comment.value]
+  ];
+  return 'Заявка на картон\n\n' + rows.filter(function (r) { return r[1].trim(); }).map(function (r) { return r[0] + ': ' + r[1].trim(); }).join('\n');
+}
+function updateOrder() {
+  checkContact(false);
+  var text = orderText(), company = orderForm.company.value.trim();
+  $('o-text').textContent = text;
+  $('o-mail').href = 'mailto:' + SALES_EMAIL + '?subject=' + encodeURIComponent('Заявка на картон' + (company ? ': ' + company : '')) +
+    '&body=' + encodeURIComponent(text.replace(/\n/g, '\r\n'));
+}
+$('o-pull').addEventListener('click', function () {
+  var src = last.kind === 'sheet' ? (last.sheet || last.roll) : (last.roll || last.sheet), f = orderForm;
+  if (!src) return status('Переносить пока нечего: сначала посчитайте рулон или листы.');
+  f.product.value = src.product;
+  if (ok(src.g)) f.grammageGsm.value = raw(src.g);
+  if (src.size) f.size.value = src.size;
+  f.unit.value = src.unit;
+  if (src.qty) f.qty.value = raw(src.qty);
+  var lines = f.comment.value.split('\n').filter(function (l) { return l.trim() && l.indexOf('Расчёт ') !== 0; });
+  lines.push(src.text);
+  f.comment.value = lines.join('\n');
+  updateOrder();
+  status('Перенесли ' + (src.product === 'рулон' ? 'расчёт рулона' : 'расчёт листов') + '. Проверьте поля и укажите контакт.');
+});
+// Облачная функция из ai/: письмо → поля заявки. Тело строкой = text/plain, без CORS-предзапроса.
+var AI_URL = 'https://functions.yandexcloud.net/d4e831e661sl4dafdrck';
+$('o-ai').addEventListener('click', function () {
+  var text = $('o-letter').value.trim(), f = orderForm, btn = this;
+  if (!text) return status('Вставьте письмо клиента.');
+  btn.disabled = true;
+  status('ИИ читает письмо…');
+  fetch(AI_URL, { method: 'POST', body: text })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.error) throw d.error;
+      ['company', 'contact', 'brand', 'size', 'city', 'comment'].forEach(function (k) { if (d[k]) f[k].value = d[k]; });
+      if (['рулон', 'лист', 'лента'].indexOf(d.product) >= 0) f.product.value = d.product;
+      if (UNITS[d.unit]) f.unit.value = d.unit;
+      if (ok(d.grammageGsm)) f.grammageGsm.value = raw(d.grammageGsm);
+      if (ok(d.qty)) f.qty.value = raw(d.qty);
+      updateOrder();
+      status('ИИ заполнил поля. Проверьте их перед отправкой.');
+    })
+    .catch(function () { status('Не получилось разобрать письмо. Заполните поля вручную.'); })
+    .finally(function () { btn.disabled = false; });
+});
+function guard() {
+  if (checkContact(true)) return true;
+  $('o-contact').focus();
+  status('Не отправлено: укажите контакт.');
+  return false;
+}
+function copyText(text) {
+  function fallback() {
+    var ta = document.createElement('textarea'), done = false;
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { done = document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+    return done;
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(function () { return true; }, fallback);
+  return Promise.resolve(fallback());
+}
+$('o-copy').addEventListener('click', function () {
+  if (!guard()) return;
+  copyText(orderText()).then(function (done) {
+    status(done ? 'Заявка скопирована. Вставьте её в письмо или мессенджер.' : 'Скопировать не вышло. Выделите текст заявки и скопируйте вручную.');
+  });
+});
+$('o-mail').addEventListener('click', function (e) {
+  if (!guard()) return e.preventDefault();
+  status(SALES_EMAIL ? 'Открываем почту.' : 'Открываем почту. Адрес получателя впишите сами: в демо он не задан.');
+});
+
+/* ---------- Связка ---------- */
+[[rollForm, calcRoll, 'roll'], [$('f-sheet'), calcSheet, 'sheet'], [orderForm, updateOrder, null]].forEach(function (s) {
+  var form = s[0], run = s[1];
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+  form.addEventListener('input', function () { if (s[2]) last.kind = s[2]; run(); });
+  form.addEventListener('change', run);
+  form.addEventListener('focusout', function (e) { if (e.target.value) { e.target.dataset.touched = '1'; run(); } });
+  run();
+});
+
+var tabs = [].slice.call(document.querySelectorAll('[role="tab"]'));
+function showTab(tab) {
+  tabs.forEach(function (t) {
+    var on = t === tab;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    $(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  var top = document.querySelector('.tabs').getBoundingClientRect().top + window.scrollY;
+  if (window.scrollY > top) window.scrollTo(0, top);
+}
+tabs.forEach(function (t, i) {
+  t.addEventListener('click', function () { showTab(t); });
+  t.addEventListener('keydown', function (e) {
+    var step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (!step) return;
+    var n = tabs[(i + step + tabs.length) % tabs.length];
+    showTab(n); n.focus();
+  });
+});
+// Ссылка «…#order» открывает сразу заявку
+if (location.hash === '#order') showTab($('tab-order'));
+</script>
+</body>
+</html>
