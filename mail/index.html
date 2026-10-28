@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Разбор входящей почты — Картонтоль (концепт)</title>
+<meta name="description" content="ИИ читает письма с общего ящика завода и определяет, кому их переслать: директору, в продажи, бухгалтерию.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#4A3237">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 57'%3E%3Cpath fill='%234A3237' d='M0 0h38v57H0z'/%3E%3Cpath fill='%2387384D' d='M19.2 40.5H0L15.4 22h19.2z'/%3E%3Cpath fill='%23FFF9C4' d='M34.5 57H15.4C11.4 55 9.7 49.7 7.4 46.6 5.5 44 3 42 0 40.5H19.1C26.1 43.2 28 53.7 34.5 56.9z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/site.css?v=3">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержанию</a>
+<div class="concept"><p class="wrap"><b>Концепт редизайна. Не официальный сайт завода.</b> Официальный сайт — <a href="https://kartontol.ru/">kartontol.ru</a></p></div>
+<header class="site wrap">
+  <a class="brand" href="../index.html"><svg viewBox="0 0 38 57" aria-hidden="true"><path fill="#4A3237" d="M0 0h38v57H0z"/><path fill="#87384D" d="M19.2 40.5H0L15.4 22h19.2z"/><path fill="#FFF9C4" d="M34.5 57H15.4C11.4 55 9.7 49.7 7.4 46.6 5.5 44 3 42 0 40.5H19.1C26.1 43.2 28 53.7 34.5 56.9z"/></svg><b><span>Картон</span>толь</b><small>завод с 1872 года</small></a>
+  <a class="tel" href="tel:+78123650702">+7 (812) 365-07-02<small>отдел продаж</small></a>
+  <nav class="nav" aria-label="Разделы сайта">
+    <a href="../products.html">Продукция</a>
+    <a href="../calculator/index.html">Калькулятор</a>
+    <a href="../about.html">О заводе</a>
+    <a href="../contacts.html">Контакты</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+<div class="calc-head">
+  <h1>Разбор входящей почты</h1>
+  <p class="lead">Письма приходят на общий ящик. ИИ читает каждое и решает, кому его переслать: директору, в продажи, в бухгалтерию. Что непонятно — секретарю. Письмо больше не ждёт, пока его перешлют вручную.</p>
+</div>
+
+<div class="mailbox">
+  <section aria-labelledby="h-inbox">
+    <div class="mail-bar">
+      <h2 id="h-inbox">Входящие</h2>
+      <button class="btn main" type="button" id="m-run">Разобрать почту</button>
+    </div>
+    <p class="hint" id="m-status" role="status">11 писем за утро. Нажмите на письмо, чтобы прочитать его целиком.</p>
+    <ol class="inbox">
+      <li><details><summary><span class="from">Анна Семёнова &lt;a.semenova@mail.ru&gt;</span><time>09:41</time><b class="subj">Вопрос</b><span class="route"></span></summary>
+<div class="body">Здравствуйте.
+Пишу вам уже третий раз, ответа нет. 14 октября мы направили требование о погашении задолженности за поставленную в августе тару, срок истёк. Если до 5 ноября не получим ответа, будем вынуждены обратиться в арбитражный суд.
+
+Семёнова А. В., юрист ООО «Упак-Север»</div></details></li>
+      <li><details><summary><span class="from">Олег Кравцов &lt;zakupki@upakprom-nn.ru&gt;</span><time>09:30</time><b class="subj">Запрос</b><span class="route"></span></summary>
+<div class="body">Добрый день!
+Рассматриваем вас как поставщика картона для производства гильз. Интересует ТГ 350–400 г/м², ширина 1020 мм, около 60 т в месяц. Пришлите прайс и условия отгрузки в Нижний Новгород.
+
+Олег Кравцов, отдел закупок</div></details></li>
+      <li><details><summary><span class="from">tsekh2@korobka-spb.ru</span><time>09:17</time><b class="subj">Re: отгрузка 22.10</b><span class="route"></span></summary>
+<div class="body">Коллеги, в последней партии (машина от 22.10) два рулона с сырыми краями, на гофроагрегате рвётся полотно. Линия стоит. Просим срочно связаться, иначе оформляем рекламацию.
+
+Мастер цеха № 2</div></details></li>
+      <li><details><summary><span class="from">Светлана Лебедева &lt;s.lebedeva@spb-business.media&gt;</span><time>09:05</time><b class="subj">Юбилей</b><span class="route"></span></summary>
+<div class="body">Здравствуйте!
+Готовлю материал о старейших предприятиях Петербурга. В 2027 году заводу исполняется 155 лет — хотели бы взять короткое интервью. Удобно ли на следующей неделе?
+
+Светлана Лебедева, редактор</div></details></li>
+      <li><details><summary><span class="from">buh@vtorresurs-kolpino.ru</span><time>08:52</time><b class="subj">Акт сверки</b><span class="route"></span></summary>
+<div class="body">Направляем акт сверки взаимных расчётов за III квартал. Расхождение 48 300 руб. по накладной от 12.09. Просим подписать и вернуть до 10 ноября.</div></details></li>
+      <li><details><summary><span class="from">Сергей &lt;sergey.kudrovo@mail.ru&gt;</span><time>08:40</time><b class="subj">сдать</b><span class="route"></span></summary>
+<div class="body">здрасте у нас на складе скопилось коробок около 3 тонн, в кипах. можно вам привезти? мы в кудрово</div></details></li>
+      <li><details><summary><span class="from">Иван Петров &lt;i.petrov.1987@yandex.ru&gt;</span><time>08:23</time><b class="subj">(без темы)</b><span class="route"></span></summary>
+<div class="body">Добрый вечер. Работал сеточником на бумагоделательной машине шесть лет. Слышал, что у вас ищут людей на производство. Можно прийти поговорить? Телефон в подписи.
+
+Иван</div></details></li>
+      <li><details><summary><span class="from">Максим Орлов &lt;m.orlov@gilza-trade.ru&gt;</span><time>08:10</time><b class="subj">Предложение</b><span class="route"></span></summary>
+<div class="body">Предлагаем картонные гильзы 76 и 152 мм собственного производства. Доставка на ваш склад за наш счёт, отсрочка платежа 30 дней. Готовы участвовать в тендере.</div></details></li>
+      <li><details><summary><span class="from">info@seo-top-prodvizhenie.ru</span><time>07:58</time><b class="subj">Ваш сайт теряет клиентов</b><span class="route"></span></summary>
+<div class="body">Мы провели аудит вашего сайта и нашли 47 ошибок! Выведем в ТОП-10 Яндекса за 30 дней. Скидка 50% только до конца недели.</div></details></li>
+      <li><details><summary><span class="from">n.k.2025@gmail.com</span><time>07:31</time><b class="subj">Добрый день</b><span class="route"></span></summary>
+<div class="body">Подскажите, пожалуйста, к кому обратиться по поводу аренды части площадей на территории завода?</div></details></li>
+      <li><details><summary><span class="from">Наталья &lt;natali.v@bk.ru&gt;</span><time>07:12</time><b class="subj">Перезвоните</b><span class="route"></span></summary>
+<div class="body">Добрый день! Звонила вчера, не дозвонилась. Перезвоните, пожалуйста, по номеру из подписи.
+
+Наталья</div></details></li>
+    </ol>
+  </section>
+
+  <aside class="paper" aria-labelledby="h-who">
+    <h2 id="h-who">Кто что получит</h2>
+    <ul class="who">
+      <li data-k="director"><b>Генеральный директор</b><small>госорганы, суды, претензии, договоры, СМИ</small><span class="n"></span></li>
+      <li data-k="sales"><b>Отдел продаж</b><small>запросы, заказы, жалобы на картон</small><span class="n"></span></li>
+      <li data-k="accounting"><b>Бухгалтерия</b><small>счета, акты, сверки</small><span class="n"></span></li>
+      <li data-k="supply"><b>Снабжение</b><small>предложения поставщиков</small><span class="n"></span></li>
+      <li data-k="waste"><b>Приём макулатуры</b><small>сдать макулатуру, архивы</small><span class="n"></span></li>
+      <li data-k="hr"><b>Отдел персонала</b><small>резюме, вакансии</small><span class="n"></span></li>
+      <li data-k="secretary"><b>Секретарь</b><small>адресат неясен</small><span class="n"></span></li>
+      <li data-k="spam"><b>Спам</b><small>не пересылается</small><span class="n"></span></li>
+    </ul>
+  </aside>
+</div>
+
+<section class="section">
+  <div class="ai">
+    <label for="m-letter">Проверьте на своём письме</label>
+    <textarea id="m-letter" placeholder="Вставьте любое письмо, лучше с темой и подписью"></textarea>
+    <button class="btn" type="button" id="m-one">Определить адресата</button>
+    <p class="route" id="m-one-out" role="status"></p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-how">
+  <h2 id="h-how">Как это работает на заводе</h2>
+  <ol class="steps">
+    <li><b>Письма приходят на общий ящик</b><p>Как сейчас. Клиентам и партнёрам менять ничего не нужно.</p></li>
+    <li><b>ИИ пересылает письмо адресату</b><p>Через минуту после прихода, с пометкой: о чём письмо и срочно ли. Копию — тем, кому тоже стоит знать.</p></li>
+    <li><b>Секретарю — сводка за день</b><p>Кому что ушло и какие письма остались без адресата. Ни одно письмо не теряется.</p></li>
+  </ol>
+  <p class="hint" style="margin-top:20px">На этой странице письма — примеры и никуда не пересылаются. Тексты писем не хранятся у Яндекса: логирование запросов к YandexGPT отключено.</p>
+</section>
+</main>
+
+<footer class="foot wrap">
+  <div>
+    <p><b>ЗАО «Завод «Картонтоль»</b></p>
+    <p>192029, Санкт-Петербург, пр. Обуховской Обороны, 72. Пн–пт 8:30–18:00.</p>
+  </div>
+  <p><b>Концепт редизайна, не официальный сайт.</b> Письма на этой странице придуманы для примера.</p>
+</footer>
+
+<script>
+// Облачная функция из ai/, режим route: письмо → кому переслать. Тело строкой = без CORS-предзапроса.
+var AI_URL = 'https://functions.yandexcloud.net/d4e831e661sl4dafdrck?mode=route';
+var WHO = { director: 'Генеральный директор', sales: 'Отдел продаж', accounting: 'Бухгалтерия', supply: 'Снабжение',
+  waste: 'Приём макулатуры', hr: 'Отдел персонала', secretary: 'Секретарь', spam: 'Спам' };
+function $(id) { return document.getElementById(id); }
+function add(parent, cls, text) {
+  var e = document.createElement('span');
+  e.className = cls; e.textContent = text; parent.appendChild(e);
+  return e;
+}
+function route(text) {
+  return fetch(AI_URL, { method: 'POST', body: text })
+    .then(function (r) { return r.json(); })
+    .then(function (d) { if (d.error || !WHO[d.to]) throw d.error || 'нет адресата'; return d; });
+}
+function cc(d) {
+  return (Array.isArray(d.cc) ? d.cc : []).filter(function (k) { return WHO[k] && k !== d.to && k !== 'spam'; });
+}
+// Ответ ИИ — только через textContent: в письме может быть что угодно.
+function show(el, d) {
+  el.textContent = '';
+  if (d.to === 'spam') return add(el, 'spam', 'Спам — не пересылаем');
+  add(el, 'to', 'Кому: ' + WHO[d.to]);
+  if (cc(d).length) add(el, 'cc', 'копия: ' + cc(d).map(function (k) { return WHO[k]; }).join(', '));
+  if (d.urgent) add(el, 'urgent', 'срочно');
+  if (d.summary) add(el, 'sum', d.summary);
+}
+function count(keys) {
+  keys.forEach(function (k) {
+    var n = document.querySelector('.who [data-k="' + k + '"] .n');
+    n.textContent = (+n.textContent || 0) + 1;
+  });
+}
+
+$('m-run').addEventListener('click', function () {
+  var btn = this, items = [].slice.call(document.querySelectorAll('.inbox > li')), queue = items.slice();
+  var done = 0, fails = 0;
+  btn.disabled = true;
+  document.querySelectorAll('.who .n').forEach(function (n) { n.textContent = ''; });
+  items.forEach(function (li) { var r = li.querySelector('.route'); r.textContent = ''; add(r, 'wait', 'ИИ читает…'); });
+  $('m-status').textContent = 'ИИ читает письма…';
+  function next() {
+    var li = queue.shift();
+    if (!li) return;
+    var text = 'От: ' + li.querySelector('.from').textContent + '\nТема: ' + li.querySelector('.subj').textContent +
+      '\n\n' + li.querySelector('.body').textContent;
+    return route(text)
+      .then(function (d) { show(li.querySelector('.route'), d); count([d.to].concat(cc(d))); },
+        function () { fails++; var r = li.querySelector('.route'); r.textContent = ''; add(r, 'wait', 'Не разобрано — нажмите «Разобрать» ещё раз'); })
+      .then(function () { $('m-status').textContent = 'Разобрано ' + (++done) + ' из ' + items.length + '…'; return next(); });
+  }
+  // ponytail: 4 запроса разом — чтобы не упереться в лимит YandexGPT; живой ящик пойдёт по одному письму
+  Promise.all([next(), next(), next(), next()]).then(function () {
+    btn.disabled = false;
+    btn.textContent = 'Разобрать заново';
+    $('m-status').textContent = fails ? 'Не разобрано писем: ' + fails + '. Попробуйте ещё раз.'
+      : 'Готово: у каждого письма есть адресат. Нажмите на письмо, чтобы сверить.';
+  });
+});
+
+$('m-one').addEventListener('click', function () {
+  var text = $('m-letter').value.trim(), out = $('m-one-out'), btn = this;
+  out.textContent = '';
+  if (!text) return add(out, 'wait', 'Вставьте текст письма.');
+  btn.disabled = true;
+  add(out, 'wait', 'ИИ читает письмо…');
+  route(text)
+    .then(function (d) { show(out, d); if (d.why) add(out, 'sum', 'Почему: ' + d.why); },
+      function () { out.textContent = ''; add(out, 'wait', 'Не получилось разобрать. Попробуйте ещё раз.'); })
+    .finally(function () { btn.disabled = false; });
+});
+</script>
+</body>
+</html>

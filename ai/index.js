@@ -6,6 +6,22 @@ const PROMPT = `Ты разбираешь письмо клиента карто
 "city":"","comment":"сроки, упаковка, вопросы"}
 Чего нет в письме — пустая строка или 0. Ничего не выдумывай.`;
 
+// ?mode=route: письмо с общего ящика → кому его переслать.
+const ROUTE = `Ты разбираешь входящую почту картонного завода и решаешь, кому переслать письмо. Адресаты:
+director — генеральный директор: госорганы, суды, проверки, претензии и иски, договоры и сотрудничество
+на уровне руководства, СМИ, письма лично директору;
+sales — отдел продаж: запросы и заказы картона, цены, отгрузка, жалобы покупателей на картон;
+waste — приём макулатуры: продать или сдать макулатуру, архивы на уничтожение;
+supply — снабжение: предложения поставщиков гильз, химии, оборудования, запчастей;
+accounting — бухгалтерия: счета, акты, сверки, оплата;
+hr — отдел персонала: резюме, вакансии, справки сотрудникам;
+spam — реклама и рассылки, которые никому не нужны;
+secretary — непонятно, кому.
+Верни только JSON без пояснений:
+{"to":"адресат","cc":["кому ещё стоит знать, обычно пусто"],"urgent":false,
+"summary":"суть письма одной фразой до 15 слов","why":"почему этот адресат, до 10 слов"}
+Ничего не выдумывай.`;
+
 exports.handler = async (event, context) => {
   const headers = { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8' };
   const body = event.isBase64Encoded ? Buffer.from(event.body || '', 'base64').toString() : event.body || '';
@@ -20,7 +36,8 @@ exports.handler = async (event, context) => {
     body: JSON.stringify({
       modelUri: `gpt://${process.env.FOLDER_ID}/yandexgpt-lite/latest`,
       completionOptions: { stream: false, temperature: 0, maxTokens: '500' },
-      messages: [{ role: 'system', text: PROMPT }, { role: 'user', text: letter }],
+      messages: [{ role: 'system', text: event.queryStringParameters?.mode === 'route' ? ROUTE : PROMPT },
+        { role: 'user', text: letter }],
     }),
   });
   const data = await r.json();

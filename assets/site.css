@@ -295,3 +295,35 @@ details[open] summary { margin-bottom: 12px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 @media print { .concept { border: 1px solid; } .hero { color: #000; border-image: none; } }
 .tag dd:empty::before { content: "—"; font-weight: 300; color: var(--muted); }
+
+/* ---------- Разбор почты ---------- */
+.mailbox { display: grid; gap: 32px; padding-block: 24px 8px; }
+.mail-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.inbox { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.inbox > li { border-bottom: 1px solid var(--rule); }
+.inbox summary { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 14px 0; font-weight: 400; }
+.inbox summary::-webkit-details-marker { display: none; }
+.inbox details[open] summary { margin-bottom: 0; }
+.inbox summary:hover .subj { color: var(--stamp); }
+.inbox .from, .inbox time { font-size: .875rem; color: var(--muted); overflow-wrap: anywhere; }
+.inbox time { font-variant-numeric: tabular-nums; }
+.inbox .subj { grid-column: 1 / -1; font-weight: 600; }
+.inbox .body { white-space: pre-line; padding-bottom: 16px; color: var(--ink-2); max-width: 46em; }
+.route { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 4px 0 0; font-size: .9375rem; }
+.route:empty { display: none; }
+.route .to { font-weight: 600; color: var(--stamp); }
+.route .cc { color: var(--ink-2); }
+.route .urgent { font: 600 .75rem/1 var(--sans); color: var(--alarm); border: 1px solid; border-radius: 3px; padding: 3px 6px; }
+.route .sum { flex-basis: 100%; color: var(--ink-2); }
+.route .wait, .route .spam { color: var(--muted); }
+.who { list-style: none; margin: 12px 0 0; padding: 0; }
+.who li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 12px; padding-block: 9px; border-bottom: 1px solid var(--rule); }
+.who li:last-child { border-bottom: 0; }
+.who b { font-weight: 600; }
+.who small { color: var(--muted); font-size: .8125rem; }
+.who .n { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: 650 1.5rem/1 var(--sans); color: var(--stamp); font-variant-numeric: tabular-nums; }
+.mailbox aside h2 { font-size: 1.375rem; }
+@media (min-width: 960px) {
+  .mailbox { grid-template-columns: minmax(0, 1fr) 340px; column-gap: 56px; align-items: start; }
+  .mailbox aside { position: sticky; top: 24px; }
+}
