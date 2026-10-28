@@ -1,3 +1,4 @@
 .remember/
 prompts/
 .DS_Store
+ai/.mail.env
